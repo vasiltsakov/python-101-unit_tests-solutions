@@ -1,6 +1,7 @@
 import unittest
 from interval import Interval
 
+
 class IntervalTests(unittest.TestCase):
     def test_stringify_all_closed_produces_correct_result(self):
         interval = Interval(1, 10)
