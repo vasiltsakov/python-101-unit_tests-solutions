@@ -24,7 +24,7 @@ class Fraction:
         """
         Returns the REPL representation of self.
         """
-        return f"Fraction(numerator, denominator)"
+        return f"Fraction({self.numerator}, {self.denominator})"
 
     def __eq__(self, other):
         """
@@ -102,3 +102,13 @@ class Fraction:
                 return False
             num -= 1
         return True
+
+    @staticmethod
+    def sorted(fractions):
+        fractions_tuples = []
+        for i, fraction in enumerate(fractions):
+            fraction_value = fraction.numerator / fraction.denominator
+            fractions_tuples.append((i, fraction_value, fraction))
+        sorted_tuples = sorted(fractions_tuples, key=lambda fract_value: fract_value[1])
+
+        return [sort_frac[2] for sort_frac in sorted_tuples]

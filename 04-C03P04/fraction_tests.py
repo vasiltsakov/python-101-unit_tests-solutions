@@ -12,6 +12,10 @@ class FractionTest(unittest.TestCase):
         self.assertEqual('1/2', a.__str__())
         self.assertEqual('1/2', b.__str__())
 
+    def test_repr(self):
+        self.assertEqual('Fraction(1, 2)', a.__repr__())
+        self.assertEqual('Fraction(1, 2)', b.__repr__())
+
     def test_equality1(self):
         self.assertTrue(a == b)
 
@@ -43,6 +47,18 @@ class FractionTest(unittest.TestCase):
         self.assertEqual('1/4', e.__str__())
         self.assertEqual('1/4', e.simplify().__str__())
         self.assertTrue(e.is_simplified())
+
+    def test_sorted1(self):
+        unsorted_fractions = [Fraction(3, 4), Fraction(1, 2), Fraction(1, 3), Fraction(2, 3)]
+        expected_sorted_fraction = [Fraction(1, 3), Fraction(1, 2), Fraction(2, 3), Fraction(3, 4)]
+        sorted_fractions = a.sorted(unsorted_fractions)
+        self.assertEqual(expected_sorted_fraction, sorted_fractions)
+
+    def test_sorted2(self):
+        unsorted_fractions = [Fraction(3, 4), Fraction(1, 2), Fraction(1, 3), Fraction(2, 3)]
+        expected_sorted_fraction = [Fraction(1, 3), Fraction(1, 2), Fraction(2, 3), Fraction(3, 4)]
+        sorted_fractions = Fraction.sorted(unsorted_fractions)
+        self.assertEqual(expected_sorted_fraction, sorted_fractions)
 
 
 if __name__ == '__main__':
