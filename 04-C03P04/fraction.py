@@ -106,9 +106,9 @@ class Fraction:
     @staticmethod
     def sorted(fractions):
         fractions_tuples = []
-        for i, fraction in enumerate(fractions):
+        for fraction in fractions:
             fraction_value = fraction.numerator / fraction.denominator
-            fractions_tuples.append((i, fraction_value, fraction))
-        sorted_tuples = sorted(fractions_tuples, key=lambda fract_value: fract_value[1])
+            fractions_tuples.append((fraction_value, fraction))
+        sorted_tuples = sorted(fractions_tuples, key=lambda fract_value: fract_value[0])
 
-        return [sort_frac[2] for sort_frac in sorted_tuples]
+        return [sort_frac[1] for sort_frac in sorted_tuples]
