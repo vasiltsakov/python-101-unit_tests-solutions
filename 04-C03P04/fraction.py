@@ -17,8 +17,8 @@ class Fraction:
         """
         if self.numerator == 0:
             return '0'
-        else:
-            return f"{self.numerator}/{self.denominator}"
+
+        return f"{self.numerator}/{self.denominator}"
 
     def __repr__(self):
         """
@@ -32,9 +32,11 @@ class Fraction:
         """
         is_instance = isinstance(other, self.__class__)
         if not is_instance:
-            return 'ATTENTION: can only be compared if both objects are a class Fraction'
-        is_equal_numerators = self.numerator == other.numerator
-        is_equal_denominator = self.denominator == other.denominator
+            raise TypeError('ATTENTION: can only be compared if both objects are a class Fraction')
+        simplify_class = self.simplify()
+        simplify_other = other.simplify()
+        is_equal_numerators = simplify_class.numerator == simplify_other.numerator
+        is_equal_denominator = simplify_class.denominator == simplify_other.denominator
 
         return is_instance and is_equal_numerators and is_equal_denominator
 
@@ -45,11 +47,11 @@ class Fraction:
         if self.denominator == other.denominator:
             new_numerator = self.numerator + other.numerator
             return Fraction(new_numerator, self.denominator)
-        else:
-            new_denominator = self.denominator * other.denominator
-            new_numerator = ((self.numerator * other.denominator)
+
+        new_denominator = self.denominator * other.denominator
+        new_numerator = ((self.numerator * other.denominator)
                             + (other.numerator * self.denominator))
-            return Fraction(new_numerator, new_denominator)
+        return Fraction(new_numerator, new_denominator)
 
     def __sub__(self, other):
         """
@@ -58,11 +60,11 @@ class Fraction:
         if self.denominator == other.denominator:
             new_numerator = self.numerator - other.numerator
             return Fraction(new_numerator, self.denominator)
-        else:
-            new_denominator = self.denominator * other.denominator
-            new_numerator = ((self.numerator * other.denominator)
+
+        new_denominator = self.denominator * other.denominator
+        new_numerator = ((self.numerator * other.denominator)
                             - (other.numerator * self.denominator))
-            return Fraction(new_numerator, new_denominator)
+        return Fraction(new_numerator, new_denominator)
 
     def __mul__(self, other):
         """
@@ -72,6 +74,14 @@ class Fraction:
         new_denominator = self.denominator * other.denominator
 
         return Fraction(new_numerator, new_denominator)
+
+    def __lt__(self, other):
+        """
+        Returns True/False if self is lower to other.
+        """
+        self_fraction_value = self.numerator / self.denominator
+        other_fraction_value = other.numerator / other.denominator
+        return self_fraction_value < other_fraction_value
 
     def simplify(self):
         """
